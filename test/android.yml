@@ -44,6 +44,7 @@ commandTests:
       - |
         ls /home/flutter/sdks/android-sdk/build-tools \
         | wc -l
+fileContentTests:
   - name: Android SDK Command-line Tools is version 19.0
     path: /home/flutter/sdks/android-sdk/cmdline-tools/latest/source.properties
     expectedContents:
