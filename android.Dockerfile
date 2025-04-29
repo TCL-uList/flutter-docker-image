@@ -6,6 +6,8 @@ ENV LANG=C.UTF-8
 
 # renovate: release=bullseye depName=curl
 ARG CURL_VERSION="7.88.1-10+deb12u12"
+# renovate: release=bullseye depName=git
+ARG GIT_VERSION="1:2.39.5-0+deb12u2"
 # renovate: release=bullseye depName=ca-certificates
 ARG CA_CERTIFICATES_VERSION="20230311"
 # renovate: release=bullseye depName=unzip
@@ -15,6 +17,7 @@ USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     curl="$CURL_VERSION" \
+    git="$GIT_VERSION" \
     ca-certificates="$CA_CERTIFICATES_VERSION" \
     unzip="$UNZIP_VERSION" \
     && rm -rf /var/lib/apt/lists/*
