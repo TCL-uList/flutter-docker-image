@@ -26,6 +26,7 @@ module.exports = async ({ core }) => {
     .join(' ')
 
   core.exportVariable('FLUTTER_VERSION', data.flutter.version)
+  core.exportVariable('FASTLANE_VERSION', data.fastlane.version)
   core.exportVariable(
     'ANDROID_BUILD_TOOLS_VERSION',
     data.android.buildTools.version

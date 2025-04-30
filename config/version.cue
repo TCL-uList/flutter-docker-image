@@ -34,4 +34,6 @@ import "list"
 		ndk!: #PatchVersion
 		cmake!: #PatchVersion
 	}
+
+	fastlane!: #PatchVersion
 }
