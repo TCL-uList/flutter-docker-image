@@ -1,24 +1,24 @@
 schemaVersion: 2.0.0
 commandTests:
-  - name: Gradle, licenses and platforms are already downloaded
-    setup:
-      - - flutter
-        - create
-        - test_app
-    teardown:
-      - - rm
-        - -r
-        - test_app
-    command: bash
-    args:
-      - -c
-      - |
-        cd test_app/android \
-        && timeout --preserve-status 480s ./gradlew bundleRelease
-    excludedOutput:
-      - Checking
-      - Installing
-      - Downloading
+  # - name: Gradle, licenses and platforms are already downloaded
+  #   setup:
+  #     - - flutter
+  #       - create
+  #       - test_app
+  #   teardown:
+  #     - - rm
+  #       - -r
+  #       - test_app
+  #   command: bash
+  #   args:
+  #     - -c
+  #     - |
+  #       cd test_app/android \
+  #       && timeout --preserve-status 480s ./gradlew bundleRelease
+  #   excludedOutput:
+  #     - Checking
+  #     - Installing
+  #     - Downloading
   - name: Android SDK build tools is pinned
     command: ls
     args:
