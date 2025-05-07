@@ -85,20 +85,27 @@ SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 # TODO: Use `dirname $(dirname $(readlink -f $(which javac)))` after the following issue is fixed
 # TODO: https://github.com/moby/moby/issues/29110
 ENV ANDROID_HOME="$SDK_ROOT/android-sdk" \
-    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+    JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$HOME/.local/bin"
 
-# renovate: release=bullseye depName=openjdk-17-jdk-headless
-ARG OPENJDK_17_JDK_HEADLESS_VERSION="17.0.14+7-1~deb12u1"
+# renovate: release=bullseye depName=openjdk-21-jdk-headless
+ARG OPENJDK_21_JDK_HEADLESS_VERSION="21.0.7+6-1"
 # renovate: release=bullseye depName=sudo
 ARG SUDO_VERSION="1.9.13p3-1+deb12u1"
 
 USER root
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+# RUN echo "APT::Default-Release \"stable\";" > /etc/apt/apt.conf.d/99defaultrelease \
+RUN echo "deb http://deb.debian.org/debian testing main" > /etc/apt/sources.list.d/testing.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends -t testing \
     # Android SDK dependencies
     ## JDK needs to be used instead of JRE because it provides the jlink tool used by the Android build
-    openjdk-17-jdk-headless="$OPENJDK_17_JDK_HEADLESS_VERSION" \
+    openjdk-21-jdk-headless="$OPENJDK_21_JDK_HEADLESS_VERSION" \
+    # To allow changing ownership in GitLab CI /builds
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
     # To allow changing ownership in GitLab CI /builds
     sudo="$SUDO_VERSION" \
     && rm -rf /var/lib/apt/lists/* \
